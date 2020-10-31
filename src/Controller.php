@@ -6,6 +6,10 @@ namespace vladislavAA\ticTacToe\Controller;
     use Exception as Exception;
     use LogicException as LogicException;
 
+    use function cli\prompt;
+    use function cli\line;
+    use function cli\out;
+
     use function vladislavAA\ticTacToe\View\showGameBoard;
     use function vladislavAA\ticTacToe\View\showMessage;
     use function vladislavAA\ticTacToe\View\getValue;
@@ -46,7 +50,7 @@ function initialize($board)
 {
     try {
         $board->setUserName(getValue("Enter user name"));
-        $board->setDimension(getValue("Enter game board size"));
+        $board->setDimension(getValue("Enter the field size"));
         $board->initialize();
     } catch (Exception $e) {
         showMessage($e->getMessage());
@@ -89,11 +93,11 @@ function gameLoop($board)
         showGameBoard($board);
         if ($currentMarkup == $board->getUserMarkup()) {
             $db = processUserTurn($board, $currentMarkup, $stopGame, $db);
-            $endGameMsg = "Player '$currentMarkup' wins the game.";
+            $endGameMsg = "Player '$currentMarkup' won!";
             $currentMarkup = $board->getComputerMarkup();
         } else {
             $db = processComputerTurn($board, $currentMarkup, $stopGame, $db);
-            $endGameMsg = "Player '$currentMarkup' wins the game.";
+            $endGameMsg = "Player '$currentMarkup' won!";
             $currentMarkup = $board->getUserMarkup();
         }
 
@@ -155,11 +159,11 @@ function getCoords($board)
 {
     $markup = $board->getUserMarkup();
     $name = $board->getUser();
-    $coords = getValue("Enter coords for player '$markup' (player: '$name' ) (enter through : )");
+    $coords = getValue("Enter coords for player '$markup' (player: '$name' ) (enter through - )");
     if ($coords == "--exit"){
         exit("Thanks for using");
     }
-    $coords = explode(":", $coords);
+    $coords = explode("-", $coords);
     $coords[0] = $coords[0]-1;
     if (isset($coords[1])) {
         $coords[1] = $coords[1]-1;
