@@ -55,7 +55,7 @@ function initialize($board)
 {
     try {
         $board->setUserName(getValue("Enter user name"));
-        $board->setDimension(getValue("Enter board size"));
+        $board->setDimension(getValue("Enter board-size"));
         $board->initialize();
     } catch (Exception $e) {
         showMessage($e->getMessage());
