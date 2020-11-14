@@ -55,7 +55,7 @@ function initialize($board)
 {
     try {
         $board->setUserName(getValue("Enter user name"));
-        $board->setDimension(getValue("Enter game board size"));
+        $board->setDimension(getValue("Enter board size"));
         $board->initialize();
     } catch (Exception $e) {
         showMessage($e->getMessage());
@@ -163,11 +163,11 @@ function getCoords($board)
 {
     $markup = $board->getUserMarkup();
     $name = $board->getUser();
-    $coords = getValue("Enter coords for player '$markup' (player: '$name' ) (enter through : )");
+    $coords = getValue("Enter coords for player '$markup' (player: '$name' ) (enter through - )");
     if ($coords == "--exit") {
         exit("Thanks for using");
     }
-    $coords = explode(":", $coords);
+    $coords = explode("-", $coords);
     $coords[0] = $coords[0] - 1;
     if (isset($coords[1])) {
         $coords[1] = $coords[1] - 1;
